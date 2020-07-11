@@ -1,0 +1,12 @@
+crendials:\
+
+
+
+http://122.165.203.72:8081/suriya
+'''''''''''
+nps app
+
+http://122.165.203.72:9094/npsapp
+
+uname:admin	
+pass:Admin

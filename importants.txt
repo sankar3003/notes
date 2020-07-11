@@ -1,0 +1,72 @@
+1.check chrome version:
+
+chrome://version/
+
+2.check typsecript version:
+ 
+tsc -version
+
+,,,
+24
+
+ng-style is the syntax for AngularJS. For Angular 2+, use [ngStyle]="" syntax.
+
+<div class="col-md-3 d-flex justify-content-center align-items-center" 
+     [ngStyle]="{'background-color': (vars.state=='Signup') ? '#73c7af' : '#ffffff'}">
+
+<div *ngIf="registrationForm.get('addressGroup.address').errors && isSubmitted">  
+            <div *ngIf="registrationForm.get('addressGroup.address').hasError('required')">  
+              <span style="color: red;">Please Enter Address.</span>  
+            </div>  
+
+   --------------------
+check th evalue if presnt or not using ? =>
+ that is must important
+
+  ==
+update angular material
+
+
+
+npm install -g @angular/cli@latest
+ng update @angular/cli @angular-devkit/build-angular
+ng update @angular/core @angular/cdk @angular/material
+;;;;;;;;;;;;;;;
+
+get value
+
+this.form.get('parent.child.gradChild.grandGrandChild').value
+
+
+=========
+
+use bootsrap for light wheight tmpaltes or websites alternatively you can go with 
+ > 
+Bootstrap alternatives, namely Foundation, Skeleton, Pure, and Semantic UI adaptable and lightweight frameworks that can meet your developmental needs and improve your site’s user-friendliness.
+====
+
+urlk for all material ui
+
+https://h2qutc.github.io/angular-material-components/fileinput
+----------
+
+---------
+convert array resposne into capital case ;
+
+       this.doughnutChartLabels =
+            String(res.continent.names).toUpperCase().split(",") || [];
+./.
+
+
+----------
+
+
+
+git merge :
+ step 1:
+
+   checkout masetr or which our final branch 
+
+   step2 :
+
+   run  commend git merge branchname

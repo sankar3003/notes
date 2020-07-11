@@ -1,0 +1,11 @@
+1.Token
+
+74ed1a5c8b2669f2e30f2f734215a5b744598e2a
+
+
+2.Running a SonarQube analysis is straighforward. You just need to execute the following commands in your project's folder.
+
+sonar-scanner.bat -D"sonar.projectKey=sreeman_12" -D"sonar.sources=." -D"sonar.host.url=http://122.165.203.72:9000" -D"sonar.login=74ed1a5c8b2669f2e30f2f734215a5b744598e2a"
+
+
+

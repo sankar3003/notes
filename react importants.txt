@@ -1,0 +1,15 @@
+react-native android error Failed to install the app native_modules.gradle' line: 170;
+
+
+This problem occurred when I was using the latest react-native package "0.61.5" ... I solved it by performing some steps
+
+Removed node_modules
+Install npm
+npm install npm
+or
+npm install npm@latest
+
+And Install react-native
+npm install --save react-native
+
+,,,,,,,,,,,,,,,
