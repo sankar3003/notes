@@ -63,10 +63,14 @@ convert array resposne into capital case ;
 
 
 git merge :
- step 1:
+$ git checkout master
+$ git branch new-branch
+$ git checkout new-branch
 
-   checkout masetr or which our final branch 
+# ...develop some code...
 
-   step2 :
-
-   run  commend git merge branchname
+$ git add –A
+$ git commit –m "Some commit message"
+$ git checkout master
+$ git merge new-branch
+ ................
