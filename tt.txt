@@ -1,0 +1,35 @@
+   if(this.lrFormUpdate.controls.commonRates.value == 2) {
+
+      this.lrFormUpdate.patchValue({
+  chargedKgs:0,
+
+        loadingCharge:0,
+        unloadCharge:0,
+        doorDeliveryCharge:0,
+        others:0,
+        ratePerBox:0,
+        cgst:0,
+        sgst:0,
+        igst:0,
+        statisticalCharges:0,
+        total:0,
+        freightToPay:0
+      });
+    }
+
+  if(this.lrFormUpdate.get('commonRates').value == 1){
+
+    this.lrFormUpdate.get('chargedKgs').disable();
+    this.lrFormUpdate.get('freightToPay').enable();
+    this.lrFormUpdate.patchValue({
+      chargedKgs:0,
+
+    });
+
+
+  }
+  else if(this.lrFormUpdate.get('commonRates').value == 3 ) {
+
+    this.lrFormUpdate.get('chargedKgs').enable();
+    this.lrFormUpdate.get('freightToPay').disable();
+  }

@@ -1,0 +1,212 @@
+mport { Component, OnInit, ViewChild, AfterContentInit, AfterViewInit } from '@angular/core';
+import { UserService } from 'src/app/@services/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+declare var $: any;
+export interface User {
+  "id": number;
+  "employee_name": string;
+  "employee_age": number;
+  "employee_salary": number,
+}
+@Component({
+  selector: 'app-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss']
+})
+export class UserComponent implements OnInit, AfterViewInit {
+  userList: any[] = [];
+  length = 100;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+  pageEvent: PageEvent;
+  displayedColumns: string[] = ['id', 'employee_name', 'employee_age', 'employee_salary', 'action'];
+  dataSource: MatTableDataSource<User>;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  employeeForm: FormGroup;
+  constructor(
+    public userService: UserService,
+    public fb: FormBuilder,
+    public toastr: NzNotificationService
+  ) {
+    this.dataSource = new MatTableDataSource(this.userList);
+    this.createEmployeeForm();
+  }
+  createEmployeeForm() {
+    this.employeeForm = this.fb.group({
+      "id": [null],
+      "employee_name": [null],
+      "employee_age": [null],
+      "employee_salary": [null],
+    })
+  }
+  createUser(request) {
+    let req: any = {};
+    req.name = request.employee_name || null;
+    req.age = request.employee_age || null;
+    req.salary = request.employee_salary || null;
+    req.id = request.id || null;
+    this.toastr.info('Please wait',"",{nzDuration:1000});
+    this.userService.createUser(req).subscribe(CreateUserResponse => {
+      console.log({ CreateUserResponse });
+      this.toastr.success('Success',"User Created Successfully");
+      this.listUser();
+      this.closeUserModal();
+    }, CreateUserError => {
+      console.log({ CreateUserError });
+    })
+  }
+  updateUser(request) {
+    let req: any = {};
+    req.name = request.employee_name || null;
+    req.age = request.employee_age || null;
+    req.salary = request.employee_salary || null;
+    req.id = request.id || null;
+    this.toastr.info('Please wait',"",{nzDuration:1000});
+    this.userService.updateUser(req).subscribe(updateUserResponse => {
+      this.toastr.success('Success',"User Updated Successfully");
+      this.closeUserModal();
+      console.log({ updateUserResponse });
+      this.listUser();
+    }, updateUserError => {
+      console.log({ updateUserError });
+    })
+  }
+  deleteUser(request) {
+    console.log(request);
+    this.toastr.info('Please wait',"");
+    this.userService.deleteUserById(request && request.id).subscribe(deleteUserResponse => {
+      this.toastr.success('Success',"User Deleted Successfully");
+      console.log({ deleteUserResponse });
+      this.listUser();
+    }, deleteUserError => {
+      console.log({ deleteUserError });
+    })
+  }
+  getSingleUserById(request) {
+    console.log(request.id);
+    /**
+     * NOTE : 
+     * 
+     *  there are some issuse in server side it gives oops fetching error 
+     *  so that i directly binding without get api
+     */
+    // this.userService.getSignleUser(request && request.id).subscribe(getSignleUserResponse => {
+      //   console.log({ getSignleUserResponse });
+      //   new Promise((resolve) => {
+        //     this.employeeForm.patchValue({
+          //       id: getSignleUserResponse && getSignleUserResponse.data && getSignleUserResponse.data.id || null,
+          //       employee_name: getSignleUserResponse && getSignleUserResponse.data && getSignleUserResponse.data.employee_name || null,
+          //       employee_age: getSignleUserResponse && getSignleUserResponse.data && getSignleUserResponse.data.employee_age || null,
+          //       employee_salary: getSignleUserResponse && getSignleUserResponse.data && getSignleUserResponse.data.employee_salary || null,
+          //     });
+          //     resolve();
+          //   }).then(() => {
+            //     $('#usermodal').modal('show');
+            //   })
+            // }, getSignleUserError => {
+              //   console.log({ getSignleUserError });
+    // })
+    new Promise((resolve) => {
+      this.employeeForm.patchValue({
+        id: request.id,
+        employee_age: request.employee_age,
+        employee_salary: request.employee_salary,
+        employee_name: request.employee_name,
+      })
+      resolve();
+    }).then(() => {
+      $('#usermodal').modal('show');
+    })
+  }
+  update(row) {
+    console.log(row);
+    this.getSingleUserById(row)
+  }
+  listUser() {
+    this.userService.getUserList().subscribe((UserListResponse: any) => {
+      console.log({ UserListResponse });
+      this.userList = UserListResponse.data || []
+      this.dataSource = new MatTableDataSource(this.userList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, UserListError => {
+      console.log({ UserListError });
+    })
+  }
+  createClicked() {
+    $('#usermodal').modal('show');
+  }
+  closeUserModal() {
+    $('#usermodal').modal('hide');
+    this.employeeForm.reset();
+  }
+  submitUser(data) {
+    if (data && data.id) {
+      this.updateUser(data);
+    } else {
+      this.createUser(data);
+    }
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+  ngOnInit() {
+    this.listUser();
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+}
+
+nnnnnnnnnnnnnnnnnnn
+
+
+
+
+<div class="mat-elevation-z8">
+        <div class="m-2 p-3">
+            <button type="button" class="btn btn-primary" (click)="createClicked()">
+                Create New Employee
+            </button>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort style="width:100%">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let row" > {{row?.id}} </td>
+            </ng-container>
+            <ng-container matColumnDef="employee_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Name </th>
+                <td mat-cell *matCellDef="let row" > {{row?.employee_name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="employee_age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Age </th>
+                <td mat-cell *matCellDef="let row"> {{row?.employee_age}} </td>
+            </ng-container>
+            <ng-container matColumnDef="employee_salary">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> employee_salary </th>
+                <td mat-cell *matCellDef="let row"> {{row?.employee_salary}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+                <td mat-cell *matCellDef="let row">
+                    <i style="color:red;cursor: pointer;" (click)="update(row)"  class="fas fa-edit"></i>
+                    &nbsp;
+                    <i style="color:red;cursor: pointer;" (click)="deleteUser(row)" class="fas fa-trash-alt"></i>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+        </table>
+        <mat-paginator [length]="length" [pageSize]="pageSize" (page)="pageEvent = $event"></mat-paginator>
+    </div>

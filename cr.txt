@@ -10,3 +10,8 @@ http://122.165.203.72:9094/npsapp
 
 uname:admin	
 pass:Admin
+
+//////////
+ananya phase;
+
+http://122.165.203.72:7070/ananya/swagger-ui.html

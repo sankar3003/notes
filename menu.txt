@@ -1,0 +1,130 @@
+   <li
+                *ngIf="role.roleId == 1 || role.roleId == 2"
+                class="m-menu__item m-menu__item--submenu m-menu__item--rel"
+                routerLinkActive="m-menu__item--active"
+                routerLinkActiveOptions="{ exact: true }"
+                data-menu-submenu-toggle="click"
+                aria-haspopup="true"
+              >
+                <a href="#" class="m-menu__link m-menu__toggle">
+                  <span class="m-menu__item-here"></span>
+                  <span class="m-menu__link-text"> Billing </span>
+                  <i class="m-menu__hor-arrow la la-angle-down"></i>
+                  <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div
+                  class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left"
+                >
+                  <span class="m-menu__arrow m-menu__arrow--adjust"></span>
+                  <ul class="m-menu__subnav">
+                    <li class="m-menu__item">
+                      <i class="ml-2 m-menu__link-icon fa fa-user"></i>
+                      <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                          <span class="m-menu__link-text">Dining </span>
+                        </span>
+                      </span>
+
+                      <ul style="list-style-type: none;">
+                        <li
+                          class="m-menu__item"
+                          routerLinkActive="m-menu__item--active"
+                          routerLinkActiveOptions="{ exact: true }"
+                          aria-haspopup="true"
+                        >
+                          <a
+                            routerLink="/Dining"
+                            [routerLink]="['', 'Dining']"
+                            class="m-menu__link"
+                          >
+                            <i class="m-menu__link-icon fa fa-user"></i>
+                            <span class="m-menu__link-title">
+                              <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text"
+                                  >Dining Entry
+                                </span>
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                        <li class="m-menu__item" aria-haspopup="true">
+                          <a
+                            routerLink="/house-monthly-report"
+                            [routerLink]="['', 'house-monthly-report']"
+                            class="m-menu__link"
+                          >
+                            <i class="m-menu__link-icon fa fa-home"></i>
+                            <span class="m-menu__link-title">
+                              <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">
+                                  Dining Report (Month wise)</span
+                                >
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-menu__item" aria-haspopup="true">
+                          <a
+                            routerLink="/ResidentDiningReport"
+                            [routerLink]="['', 'ResidentDiningReport']"
+                            class="m-menu__link"
+                          >
+                            <i class="m-menu__link-icon fa fa-home"></i>
+                            <span class="m-menu__link-title">
+                              <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">
+                                  Dining Report (Day wise)
+                                </span>
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+
+                    <li class="m-menu__item" aria-haspopup="true">
+                      <i class="ml-2 m-menu__link-icon fa fa-user"></i>
+                      <span class="m-menu__link-title">
+                        <span class="m-menu__link-wrap">
+                          <span class="m-menu__link-text">Maintanance </span>
+                        </span>
+                      </span>
+
+                      <ul style="list-style-type: none;" class="ul-line-height">
+                        <li class="m-menu__item" aria-haspopup="true">
+                          <a
+                            routerLink="/MaintenanceReport"
+                            [routerLink]="['', 'MaintenanceReport']"
+                            class="m-menu__link"
+                          >
+                            <i class="m-menu__link-icon fa fa-building"></i>
+                            <span class="m-menu__link-title">
+                              <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text"> Reports</span>
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+
+                        <li class="m-menu__item" aria-haspopup="true">
+                          <a
+                            routerLink="/InvoiceReport"
+                            [routerLink]="['', 'InvoiceReport']"
+                            class="m-menu__link"
+                          >
+                            <i class="m-menu__link-icon fa fa-building"></i>
+                            <span class="m-menu__link-title">
+                              <span class="m-menu__link-wrap">
+                                <span class="m-menu__link-text">
+                                  Invoice Report</span
+                                >
+                              </span>
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </li>

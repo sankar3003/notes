@@ -36,6 +36,10 @@ ng update @angular/core @angular/cdk @angular/material
 get value
 
 this.form.get('parent.child.gradChild.grandGrandChild').value
+=====
+
+smooth js for loadin page very smothly
+
 
 
 =========
@@ -74,3 +78,164 @@ $ git commit –m "Some commit message"
 $ git checkout master
 $ git merge new-branch
  ................
+
+
+check jquery loaded or not
+      
+
+window.onload = function () {
+        if (window.jQuery) {
+          // jQuery is loaded
+          alert("Yeah!");
+        } else {
+          // jQuery is not loaded
+          alert("Doesn't Work");
+        }
+      };
+
+
+
+-------------
+
+when commit and push your aoid dist and compressed zip folder
+==
+
+
+cdr dedect ref in angular is  	important
+===
+prob:
+Expected validator to return Promise or Observable
+sol:
+
+it means that you have to add multiple validators in array
+
+. Example:
+
+With Error
+
+profileFormGroup = {
+  budget: [null, Validators.required, Validators.min(1)]
+};
+Above one throws error that validator to return Promise or Observable
+
+Fix:
+
+profileFormGroup = {
+  budget: [null, [Validators.required, Validators.min(1)]]
+};
+
+----------
+
+
+
+angular notification
+ -> sweetalert2
+
+.......
+
+> host project to firebase
+install firebase tools
+
+firebase init 
+
+firebase login 
+
+ng build --prod --aot 
+
+firebase deploy
+
+====
+
+
+ionic cordova platform add android 
+
+enable usb devices 
+
+and 
+
+ionic cordova run android
+
+
+---------------
+
+Environment Variable For Windows
+ANDROID_HOME
+C:\Users${user}\AppData\Local\Android\sdk (deprecated)
+
+ANDROID_SDK_ROOT
+C:\Users${user}\AppData\Local\Android\sdk
+
+JAVA_HOME
+C:\Program Files\java${jdkVersion}
+
+PATH
+C:\Users${user}\AppData\Local\Android\sdk\platform-tools
+
+PATH
+C:\Users${user}\AppData\Local\Android\sdk\tools\bin
+
+PATH
+C:\Users${user}\AppData\Local\Android\sdk\emulator
+
+PATH
+C:\Users${user}\AppData\Local\Android\sdk\build-tools${version}
+
+PATH
+C:\Program Files\java${jdkVersion}\bin
+
+=======
+typescript version install
+ 
+npm i typescript@">=3.6.4 <3.8.0"
+
+typescript version check 
+
+=====
+in prime ng split button
+
+    this.items = [
+      {
+        label: 'Logout',
+        icon: 'pi pi-power-off',
+
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-times',
+      },
+      {
+        label: 'Angular Website',
+        icon: 'pi pi-external-link',
+        url: 'http://angular.io',
+      },
+      {
+        label: 'Router',
+        icon: 'pi pi-upload',
+        routerLink: '/fileupload',
+     command:(event)=>this.test()
+      },
+    ];
+
+
+=========
+
+autofocus input in angular
+
+it should be ng aferviewinit
+
+@ViewChild('nameit') private elementRef: ElementRef;
+
+ngAfterViewInit() {
+    this.elementRef.nativeElement.focus();
+}
+
+====
+input validation in angular
+
+  <span *ngIf="submitted && loginFormControl.password.errors" class="text-danger">
+              <div *ngIf="loginFormControl.password.errors.required">Password is required</div>
+              <div *ngIf="loginFormControl.password.errors.minlength">Password must be at least 6 characters</div>
+          </span>
+==========
+
+

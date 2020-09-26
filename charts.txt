@@ -1,0 +1,105 @@
+
+  barChart(){
+    let htmlRef = this.elementRef.nativeElement.querySelector(`#myChart`);
+    var myChart = new Chart(htmlRef, {
+      type: 'bar',
+
+      data: {
+          labels: [ 'M', 'T', 'W', 'T', 'F','S','S'],
+          datasets: [{
+              label: 'Last Week',
+              data: [5, 6, 15, 5, 7,4, 3],
+              backgroundColor: [
+                  'rgba(115,136,169,0.35)',
+                  'rgba(115,136,169,0.35)',
+                  '#0067FF',
+                  'rgba(115,136,169,0.35)',
+                  'rgba(115,136,169,0.35)',
+                  'rgba(115,136,169,0.35)',
+                  'rgba(115,136,169,0.35)',
+
+
+
+              ],
+              borderColor: [
+                'rgba(115,136,169,0.35)',
+                'rgba(115,136,169,0.35)',
+                '#0067FF',
+                'rgba(115,136,169,0.35)',
+                'rgba(115,136,169,0.35)',
+                'rgba(115,136,169,0.35)',
+                'rgba(115,136,169,0.35)',
+              ],
+
+              borderWidth: 0
+          }]
+      },
+      options: {
+
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          title: {
+            display: true,
+            text: 'Revenue Generated',
+            position:'top',
+            align:'start'
+
+        }
+      },
+      padding: {
+        top: 0,
+        bottom: 0
+    }
+  });
+
+  }
+  doughnut(){
+    let htmlRef = this.elementRef.nativeElement.querySelector(`#doughnut-chart`);
+  new Chart(htmlRef, {
+    type: 'doughnut',
+    data: {
+      labels: ["Dry Cleaning", "Ioning", "Washing", "Stitching", "Packaging"],
+      datasets: [
+        {
+          label: "Today",
+          backgroundColor: ["#0067FF", "#FFC935","#EF435D","#BF5BFF","#58D0FF"],
+          data: [100,400,734,354,433]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Pending Clothes Distribution'
+      }
+    }
+});
+  }
+
+doughnutchartTwo(){
+  let htmlRef = this.elementRef.nativeElement.querySelector(`#doughnut-chart-two`);
+  new Chart(htmlRef, {
+    type: 'doughnut',
+    data: {
+      labels: ["Dry Cleaning", "Ioning", "Washing", "Stitching", "Packaging"],
+      datasets: [
+        {
+          label: "Today",
+          backgroundColor: ["#0067FF", "#FFC935","#EF435D","#BF5BFF","#58D0FF"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Pending Processing'
+      }
+    }
+});
+}

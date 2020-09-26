@@ -1,0 +1,207 @@
+  ngOnInit() {
+    this.commonRateDD();
+    if (this.hrService.LrId == null || this.hrService.LrId == "") {
+      this.route.navigate(["/LrList"]);
+    } else {
+      // Sidebar visiblity hidden
+      document.getElementById("sideBar").style.display = "block";
+      document.getElementById("sideBarActive").style.display = "block";
+
+      //
+      // dropDown for Organization
+      this.hrService.getDDOrganisation().subscribe(
+        (data) => {
+          if (data.status === "SUCCESS") {
+            this.fromOrganisationFields = data.results;
+            this.toOrganisationFields = data.results;
+          }
+        },
+        (error) => {
+          //  this.toastr.error(error.errorMessage);
+        }
+      );
+
+      //
+      // dropDown for LR Numbers
+      this.hrService.getDDLRNumbers().subscribe(
+        (data) => {
+          if (data.status === "SUCCESS") {
+            this.LrNumbers = data.results;
+            console.log(data.results);
+          }
+        },
+        (error) => {
+          this.toastr.error(error.errorMessage);
+        }
+      );
+      // dropDown for lorryNumbers
+      this.hrService.getDDLorryNumber().subscribe(
+        (data) => {
+          if (data.status === "SUCCESS") {
+            this.lorryNumbers = data.results;
+          }
+        },
+        (error) => {
+          //  this.toastr.error(error.errorMessage);
+        }
+      );
+      //this.getSingleLrDetails();
+      this.lrFormUpdate
+        .get("packageDetails")
+        .valueChanges.subscribe((values) => {
+          let billWeight = 0;
+          let billValue = 0;
+          let noOfPackages = 0;
+          billValue = this.valround();
+          billWeight = this.billround();
+          noOfPackages = this.packageround();
+
+          if (this.lrFormUpdate.controls.roundValue.value) {
+            this.lrFormUpdate.patchValue({
+              actualKgs: Math.round(billWeight),
+              noOfPackages: Math.round(noOfPackages),
+              valueRs: Math.round(billValue),
+            });
+          } else {
+            this.lrFormUpdate.patchValue({
+              actualKgs: Math.round(billWeight),
+              noOfPackages: Math.round(noOfPackages),
+              valueRs: billValue.toFixed(2),
+            });
+          }
+        });
+
+      this.lrFormUpdate.get("roundTotal").valueChanges.subscribe((value) => {
+        this.cal();
+      });
+
+      this.lrFormUpdate.get("roundValue").valueChanges.subscribe((value) => {
+        console.log("v", value);
+        if (value) {
+          this.lrFormUpdate.patchValue({
+            valueRs: Math.round(this.lrFormUpdate.controls.valueRs.value),
+          });
+        } else {
+          let billWeight = 0;
+          let billValue = 0;
+          let noOfPackages = 0;
+          billWeight = this.billround();
+          billValue = this.valround();
+          noOfPackages = this.packageround();
+
+          if (this.lrFormUpdate.controls.roundValue.value) {
+            this.lrFormUpdate.patchValue({
+              actualKgs: Math.round(billWeight),
+              noOfPackages: Math.round(noOfPackages),
+              valueRs: Math.round(billValue),
+            });
+          } else {
+            this.lrFormUpdate.patchValue({
+              actualKgs: Math.round(billWeight),
+              noOfPackages: Math.round(noOfPackages),
+              valueRs: billValue.toFixed(2),
+            });
+          }
+        }
+      });
+
+      this.lrFormUpdate.controls.fromBranchForm.controls.fromfOrganisation.valueChanges.subscribe(
+        (data) => {
+          if (data != null) {
+            this.dropfromBranchFields = [];
+            this.clearFields(this.lrFormUpdate.controls.fromBranchForm);
+            this.lrFormUpdate.controls.fromBranchForm.controls.tofOrganisation.reset();
+            this.getFromBranch(data);
+          } else {
+            this.dropfromBranchFields = [];
+            this.clearFields(this.lrFormUpdate.controls.fromBranchForm);
+            this.lrFormUpdate.controls.fromBranchForm.controls.tofOrganisation.reset();
+          }
+        }
+      );
+
+      this.lrFormUpdate.controls.fromBranchForm.controls.tofOrganisation.valueChanges.subscribe(
+        (data) => {
+          if (data != null) {
+            this.clearFields(this.lrFormUpdate.controls.fromBranchForm);
+            this.getfromBranchData(data);
+          } else {
+            this.clearFields(this.lrFormUpdate.controls.fromBranchForm);
+          }
+        }
+      );
+
+      this.lrFormUpdate.controls.toBranchForm.controls.fromtOrganisation.valueChanges.subscribe(
+        (data) => {
+          if (data != null) {
+            this.droptoBranchFields = [];
+            this.clearFields(this.lrFormUpdate.controls.toBranchForm);
+            this.lrFormUpdate.controls.toBranchForm.controls.totOrganisation.reset();
+            this.getToBranch(data);
+          } else {
+            this.droptoBranchFields = [];
+            this.clearFields(this.lrFormUpdate.controls.toBranchForm);
+            this.lrFormUpdate.controls.toBranchForm.controls.totOrganisation.reset();
+          }
+        }
+      );
+
+      this.lrFormUpdate.controls.toBranchForm.controls.totOrganisation.valueChanges.subscribe(
+        (data) => {
+          if (data != null) {
+            this.clearFields(this.lrFormUpdate.controls.toBranchForm);
+            this.getToBranchData(data);
+          } else {
+            this.clearFields(this.lrFormUpdate.controls.toBranchForm);
+          }
+        }
+      );
+
+      this.lrFormUpdate.get("chargedWeight").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+      this.lrFormUpdate.get("chargedKgs").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+      this.lrFormUpdate.get("commonRates").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+
+      this.lrFormUpdate.get("freightToPay").valueChanges.subscribe((value) => {
+        console.log("called");
+        if (
+          this.lrFormUpdate.controls.commonRates.value == 1 ||
+          this.lrFormUpdate.controls.commonRates.value == 4
+        ) {
+          console.log("called1");
+          this.cal();
+          this.ref.detectChanges();
+        }
+      });
+      this.lrFormUpdate
+        .get("statisticalCharges")
+        .valueChanges.subscribe((value) => {
+          this.cal();
+          this.ref.detectChanges();
+        });
+      this.lrFormUpdate.get("cgst").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+      this.lrFormUpdate.get("sgst").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+      this.lrFormUpdate.get("igst").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+      this.lrFormUpdate.get("ratePerBox").valueChanges.subscribe((value) => {
+        this.cal();
+        this.ref.detectChanges();
+      });
+    }
+  }

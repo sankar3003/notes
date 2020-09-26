@@ -1,0 +1,26 @@
+ionic:
+
+As a result of my long research, I found the solution.
+
+cordova platform rm android
+cordova plugin rm cordova-plugin-firebase
+cordova plugin add cordova-plugin-firebasex
+cordova platform add android@latest
+then
+
+Change your all build.gradle file
+Gradle Plugin as 3.0.0
+Gradle Wrapper as 4.1
+
+Replace the distributionUrl in android/cordova/lib/builder/ProjectsBuilder.js with 4.1
+
+Good luck!
+
+=====
+
+cordova plugin list
+
+
+to know system requirements of ionic :
+
+ ionic info

@@ -1,0 +1,37 @@
+
+setup angular environment
+
+step 1:
+download and install  node js from below link
+
+https://nodejs.org/en/download/
+
+
+step 2:
+
+download angular for global  in command
+
+npm install -g @angular/cli
+
+step 3:
+
+for create new project and run following commands in command
+
+ng new my-dream-app
+cd my-dream-app
+ng serve
+
+
+FOR RUN ALREADY INSTALLED PROJECT
+
+1. open project folder in editor( visual studio code )
+2. run below command  in cmd of project folder
+   
+   npm i
+
+3. to run project locally run below command
+   
+  ng serve or npm start
+
+4 . to get build project run below command
+    ng build --prod  or npm run build --prod
